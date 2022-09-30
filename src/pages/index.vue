@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import FormComponent from '../../src/components/Form.vue'
+const formProp = shallowRef(FormComponent)
+
+const propsToSendToComponent = ref([{
+  title: 'this is a title',
+  form: formProp,
+}])
+
 const user = useUserStore()
 const name = $ref(user.savedName)
 
@@ -27,9 +35,10 @@ const { t } = useI18n()
 
     <div py-4 />
 
+    <TestImport :title="propsToSendToComponent[0].title" :form="propsToSendToComponent[0].form" />
+
     <input
       id="input"
-      v-model="name"
       :placeholder="t('intro.whats-your-name')"
       :aria-label="t('intro.whats-your-name')"
       type="text"
